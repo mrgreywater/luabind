@@ -45,7 +45,6 @@
 
 #include <luabind/back_reference_fwd.hpp>
 #include <luabind/config.hpp>
-#include <luabind/detail/class_cache.hpp>
 #include <luabind/detail/class_registry.hpp>
 #include <luabind/detail/debug.hpp>
 #include <luabind/detail/decorate_type.hpp>
