@@ -1,6 +1,6 @@
 include_directories(
     ${Boost_INCLUDE_DIRS} ${LUA_INCLUDE_DIR} ${CMAKE_SOURCE_DIR})
-    
+
 add_executable(benchmark "benchmark.cpp")
 target_link_libraries(benchmark ${LUA_LIBRARIES} luabind)
 
@@ -10,7 +10,7 @@ add_library(testmain
     # function:
     "test_has_get_pointer.cpp"
     "test_typetraits.cpp")
-    
+
 target_link_libraries(testmain ${LUA_LIBRARIES} luabind)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -69,3 +69,18 @@ foreach(test ${TESTS})
     set_property(TARGET test_${test} PROPERTY FOLDER "Tests")
     add_test(${test} test_${test})
 endforeach(test)
+
+if (NOT LUABIND_SKIP_HEADER_TESTS)
+    get_filename_component(BASE "${CMAKE_CURRENT_SOURCE_DIR}/../luabind" ABSOLUTE)
+    foreach(HEADER ${APIHEADERS})
+        get_filename_component(FULLHEADER "${HEADER}" ABSOLUTE)
+        file(RELATIVE_PATH SHORTNAME "${BASE}" "${FULLHEADER}")
+        string(REPLACE "/" "_" SHORTNAME "${SHORTNAME}")
+        string(REPLACE ".hpp" "" SHORTNAME "${SHORTNAME}")
+        configure_file(test_headercompile.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/test_headercompile_${SHORTNAME}.cpp" @ONLY)
+
+        add_executable(test_headercompile_${SHORTNAME} "${CMAKE_CURRENT_BINARY_DIR}/test_headercompile_${SHORTNAME}.cpp")
+        set_property(TARGET test_headercompile_${SHORTNAME} PROPERTY FOLDER "Tests/Headers")
+        target_link_libraries(test_headercompile_${SHORTNAME} luabind)
+    endforeach()
+endif()
