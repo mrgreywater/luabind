@@ -16,6 +16,7 @@
 #  include <boost/preprocessor/iteration/local.hpp>
 #  include <boost/preprocessor/repetition/enum_params.hpp>
 #  include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#  include <boost/mpl/size.hpp>
 
 namespace luabind { namespace detail {
 
