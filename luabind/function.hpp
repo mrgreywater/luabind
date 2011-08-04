@@ -5,9 +5,17 @@
 #ifndef LUABIND_FUNCTION2_081014_HPP
 # define LUABIND_FUNCTION2_081014_HPP
 
-# include <luabind/make_function.hpp>
-# include <luabind/scope.hpp>
-# include <luabind/detail/call_function.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/make_function.hpp>    // for add_overload, make_function
+#include <luabind/scope.hpp>            // for scope, registration
+#include <luabind/detail/deduce_signature.hpp>  // for deduce_signature
+#include <luabind/detail/primitives.hpp>  // for null_type
+#include <luabind/from_stack.hpp>       // for from_stack
+#include <luabind/object.hpp>           // for object
+
+#include <luabind/lua_include.hpp>
+
+# include <auto_ptr.h>                   // for auto_ptr
 
 namespace luabind {
 
