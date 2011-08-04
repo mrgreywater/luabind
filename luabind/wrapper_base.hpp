@@ -32,6 +32,8 @@
 
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_void.hpp>
 
 #include <stdexcept>
 
