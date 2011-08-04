@@ -12,6 +12,7 @@
 #  else
 #   include <boost/mpl/vector/vector50.hpp>
 #  endif
+#  include <boost/mpl/push_front.hpp>
 #  include <boost/preprocessor/cat.hpp>
 #  include <boost/preprocessor/iterate.hpp>
 #  include <boost/preprocessor/repetition/enum_params.hpp>
@@ -79,12 +80,21 @@ tag_function(F f)
 
 # define N BOOST_PP_ITERATION()
 # define NPLUS1 BOOST_PP_INC(N)
+# define NPLUS2 BOOST_PP_INC(NPLUS1)
 
 template <class R BOOST_PP_ENUM_TRAILING_PARAMS(N, class A)>
 struct signature_from_function<R(BOOST_PP_ENUM_PARAMS(N, A))>
 {
     typedef BOOST_PP_CAT(boost::mpl::vector, NPLUS1)<
         R BOOST_PP_ENUM_TRAILING_PARAMS(N, A)
+    > type;
+};
+
+template <class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(N, class A)>
+struct signature_from_function<R(T::*)(BOOST_PP_ENUM_PARAMS(N, A))>
+{
+    typedef BOOST_PP_CAT(boost::mpl::vector, NPLUS2)<
+        R, T * BOOST_PP_ENUM_TRAILING_PARAMS(N, A)
     > type;
 };
 
