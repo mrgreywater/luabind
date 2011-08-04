@@ -5,9 +5,12 @@
 #ifndef LUABIND_EXCEPTION_HANDLER_050601_HPP
 # define LUABIND_EXCEPTION_HANDLER_050601_HPP
 
-# include <luabind/lua_include.hpp>
 # include <luabind/config.hpp>
-# include <boost/optional.hpp>
+
+# include <luabind/lua_include.hpp>
+
+# include <boost/detail/workaround.hpp>  // for BOOST_MSVC_WORKAROUND_GUARD, etc
+# include <boost/optional.hpp>           // for optional
 # include <boost/type.hpp>
 
 # if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
