@@ -25,6 +25,7 @@
 #define LUABIND_GARBAGE_COLLECTOR_HPP_INCLUDED
 
 #include <luabind/config.hpp>
+#include <luabind/lua_include.hpp>
 
 namespace luabind { namespace detail
 {
