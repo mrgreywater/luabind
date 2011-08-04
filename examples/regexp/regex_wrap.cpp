@@ -44,14 +44,24 @@ void wrap_regex(lua_State* L)
 
 int main()
 {
+#if LUA_VERSION_NUM < 501
 	lua_State* L = lua_open();
 	lua_baselibopen(L);
-	lua_strlibopen(L);
+	lua_mathlibopen(L);
+#else
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+#endif
+
 	luabind::open(L);
 	
 	wrap_regex(L);
-	
+
+#if LUA_VERSION_NUM < 501
 	lua_dofile(L, "regex.lua");
+#else
+	luaL_dofile(L, "regex.lua");
+#endif
 	
 	lua_close(L);
 }

@@ -1,0 +1,5 @@
+find_package(Boost COMPONENTS filesystem)
+if(Boost_FOUND)
+	add_executable(filesystem filesystem.cpp directory_iterator.hpp)
+	target_link_libraries(filesystem luabind ${Boost_LIBRARIES})
+endif()

@@ -167,14 +167,23 @@ void bind_glut(lua_State* L)
 
 int main(int argc, char* argv[])
 {
+#if LUA_VERSION_NUM < 501
 	lua_State* L = lua_open();
 	lua_baselibopen(L);
 	lua_mathlibopen(L);
+#else
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+#endif
 	bind_glut(L);
 
 	glutInit (&argc, argv);
 
+#if LUA_VERSION_NUM < 501
 	lua_dofile(L, "glut_bindings.lua");
+#else
+	luaL_dofile(L, "glut_bindings.lua");
+#endif
 
 	lua_close(L);
 	return 0;

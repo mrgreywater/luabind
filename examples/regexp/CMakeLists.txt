@@ -1,0 +1,5 @@
+find_package(Boost COMPONENTS regex)
+if(Boost_FOUND)
+	add_executable(regexp regex_wrap.cpp)
+	target_link_libraries(regexp luabind ${Boost_LIBRARIES})
+endif()

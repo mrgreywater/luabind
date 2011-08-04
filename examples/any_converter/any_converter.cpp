@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 extern "C"
 {

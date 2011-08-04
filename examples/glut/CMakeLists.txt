@@ -1,0 +1,7 @@
+find_package(OpenGL)
+find_package(GLUT)
+if(OPENGL_FOUND AND GLUT_FOUND)
+	include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
+	add_executable(glut glut_bind.cpp)
+	target_link_libraries(glut luabind ${GLUT_LIBRARIES} ${OPENGL_LIBRARIES})
+endif()

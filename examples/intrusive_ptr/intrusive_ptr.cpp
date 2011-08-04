@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <cstring>
+
 extern "C"
 {
 	#include "lua.h"
@@ -21,6 +23,7 @@ bool dostring(lua_State* L, const char* str)
 
 #include <luabind/luabind.hpp>
 #include <boost/intrusive_ptr.hpp>
+
 
 namespace luabind
 {
@@ -140,8 +143,14 @@ boost::intrusive_ptr<A> factory()
 
 int main()
 {
+#if LUA_VERSION_NUM < 501
 	lua_State* L = lua_open();
 	lua_baselibopen(L);
+	lua_mathlibopen(L);
+#else
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+#endif
 
 	luabind::open(L);
 	
