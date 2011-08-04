@@ -27,7 +27,9 @@
 #include <luabind/config.hpp>
 #include <luabind/detail/policy.hpp>
 
-namespace luabind { namespace detail 
+#include <boost/mpl/if.hpp>             // for if_
+
+namespace luabind { namespace detail
 {
 	struct discard_converter
 	{
