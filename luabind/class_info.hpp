@@ -42,7 +42,7 @@ namespace luabind
     // returns a table of bound class names
     LUABIND_API object get_class_names(lua_State* L);
 
-	LUABIND_API void bind_class_info(lua_State*);
+	LUABIND_API void bind_class_info(lua_State* L);
 }
 
 #endif
