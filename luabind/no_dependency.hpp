@@ -5,12 +5,15 @@
 #ifndef LUABIND_NO_DEPENDENCY_100324_HPP
 # define LUABIND_NO_DEPENDENCY_100324_HPP
 
-# include <luabind/detail/policy.hpp>
+# include <luabind/detail/policy.hpp>    // for index_map, policy_cons
+
+# include <luabind/lua_state_fwd.hpp>    // for lua_State *
 
 namespace luabind {
 
 namespace detail
 {
+  struct null_type;
 
   struct no_dependency_policy
   {
