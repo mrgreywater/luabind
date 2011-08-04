@@ -38,7 +38,11 @@
 #include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/facilities/expand.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_void.hpp>
 #include <boost/mpl/apply_wrap.hpp>
 
 namespace luabind
