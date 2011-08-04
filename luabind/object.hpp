@@ -23,13 +23,12 @@
 #ifndef LUABIND_OBJECT_050419_HPP
 #define LUABIND_OBJECT_050419_HPP
 
-#include <boost/implicit_cast.hpp> // detail::push()
-#include <boost/ref.hpp> // detail::push()
-#include <boost/mpl/bool.hpp> // value_wrapper_traits specializations
-#include <boost/mpl/apply_wrap.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/optional.hpp>
 
+#include <luabind/config.hpp>           // for LUABIND_MAX_ARITY
+#include <luabind/detail/class_rep.hpp>  // for property_tag
+#include <luabind/detail/decorate_type.hpp>  // for LUABIND_DECORATE_TYPE
+#include <luabind/detail/primitives.hpp>  // for cpp_to_lua (ptr only), etc
+#include <luabind/error.hpp>            // for error, cast_failed
 #include <luabind/nil.hpp>
 #include <luabind/value_wrapper.hpp>
 #include <luabind/detail/pcall.hpp>
@@ -40,10 +39,22 @@
 #include <luabind/detail/convert_to_lua.hpp> // REFACTOR
 #include <luabind/typeid.hpp>
 
-#include <boost/iterator/iterator_facade.hpp> // iterator
 
+#include <luabind/lua_include.hpp>
+
+#include <boost/iterator/iterator_facade.hpp> // iterator
+#include <boost/implicit_cast.hpp> // detail::push()
+#include <boost/ref.hpp> // detail::push()
+#include <boost/mpl/bool.hpp> // value_wrapper_traits specializations
+#include <boost/mpl/apply_wrap.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/optional.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/utility/enable_if.hpp>
+
+#include <assert.h>                     // for assert
+#include <stddef.h>                     // for size_t
+#include <algorithm>                    // for copy
 
 namespace luabind {
 
