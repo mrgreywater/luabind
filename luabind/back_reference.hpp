@@ -23,13 +23,20 @@
 #ifndef LUABIND_BACK_REFERENCE_040510_HPP
 #define LUABIND_BACK_REFERENCE_040510_HPP
 
-#include <luabind/lua_include.hpp>
+
+#include <luabind/detail/ref.hpp>       // for lua_reference
 #include <luabind/wrapper_base.hpp>
 #include <luabind/detail/has_get_pointer.hpp>
 #include <luabind/get_pointer.hpp>
+
+#include <luabind/lua_include.hpp>
+
 #include <boost/type_traits/is_polymorphic.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/mpl/if.hpp>
+#include <boost/mpl/bool.hpp>           // for bool_
+#include <boost/mpl/bool_fwd.hpp>       // for false_, true_
+
+#include <assert.h>                     // for assert
 
 namespace luabind {
 

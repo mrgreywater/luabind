@@ -24,14 +24,26 @@
 #ifndef LUABIND_ADOPT_POLICY_HPP_INCLUDED
 #define LUABIND_ADOPT_POLICY_HPP_INCLUDED
 
-#include <luabind/config.hpp>
-#include <luabind/wrapper_base.hpp>
-#include <luabind/detail/policy.hpp>
-#include <luabind/back_reference_fwd.hpp>
-#include <luabind/wrapper_base.hpp>
-#include <boost/type_traits/is_polymorphic.hpp>
+#include <luabind/back_reference_fwd.hpp>  // for move_back_reference
+#include <luabind/detail/policy.hpp>    // for policy_cons, etc
+#include <luabind/wrapper_base.hpp>     // for wrapped_self_t, wrap_access
+#include <luabind/detail/decorate_type.hpp>  // for LUABIND_DECORATE_TYPE
+#include <luabind/detail/make_instance.hpp>  // for make_instance
+#include <luabind/detail/object_rep.hpp>  // for object_rep
+#include <luabind/detail/primitives.hpp>  // for null_type (ptr only), etc
+#include <luabind/detail/ref.hpp>       // for lua_reference
+#include <luabind/detail/typetraits.hpp>  // for is_nonconst_pointer
 
-namespace luabind { namespace detail 
+#include <luabind/lua_include.hpp>      // for lua_State, lua_pushnil, etc
+
+#include <boost/mpl/bool.hpp>           // for bool_
+#include <boost/mpl/bool_fwd.hpp>       // for false_, true_
+#include <boost/mpl/if.hpp>             // for if_
+#include <boost/type_traits/is_polymorphic.hpp>  // for is_polymorphic
+
+#include <auto_ptr.h>                   // for auto_ptr
+
+namespace luabind { namespace detail
 {
     template <class T>
     void adjust_backref_ownership(T* ptr, mpl::true_)

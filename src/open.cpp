@@ -22,11 +22,18 @@
 
 #define LUABIND_BUILDING
 
+
+#include <luabind/class.hpp>            // for create_class
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/class_registry.hpp>  // for class_registry
+#include <luabind/detail/class_rep.hpp>  // for property_tag
+#include <luabind/detail/garbage_collector.hpp>
+#include <luabind/detail/inheritance.hpp>  // for cast_graph, class_id_map, etc
+
 #include <luabind/lua_include.hpp>
 
-#include <luabind/luabind.hpp>
-#include <luabind/function.hpp>
-#include <luabind/get_main_thread.hpp>
+#include <new>                          // for operator new
+#include <stdexcept>                    // for runtime_error
 
 namespace luabind {
 

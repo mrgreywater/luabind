@@ -22,12 +22,17 @@
 
 #define LUABIND_BUILDING
 
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/garbage_collector.hpp>
+#include <luabind/typeid.hpp>           // for type_id
+#include <luabind/detail/class_registry.hpp>  // for class_registry
+#include <luabind/detail/class_rep.hpp>  // for class_rep
+
 #include <luabind/lua_include.hpp>
 
-#include <luabind/luabind.hpp>
-#include <luabind/detail/class_registry.hpp>
-#include <luabind/detail/class_rep.hpp>
-#include <luabind/detail/operator_id.hpp>
+#include <assert.h>                     // for assert
+#include <map>                          // for map, etc
+#include <utility>                      // for pair
 
 namespace luabind { namespace detail {
 

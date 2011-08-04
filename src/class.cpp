@@ -22,16 +22,28 @@
 
 #define LUABIND_BUILDING
 
-#include <boost/foreach.hpp>
+#include <luabind/class.hpp>            // for class_base
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/nil.hpp>              // for nil_type
+#include <luabind/detail/class_registry.hpp>  // for class_registry
+#include <luabind/detail/class_rep.hpp>  // for class_rep, etc
+#include <luabind/detail/debug.hpp>     // for LUABIND_CHECK_STACK
+#include <luabind/detail/inheritance.hpp>  // for cast_function, class_id, etc
+#include <luabind/detail/primitives.hpp>  // for ltstr, etc
+#include <luabind/scope.hpp>            // for scope, registration
+#include <luabind/typeid.hpp>           // for type_id
 
-#include <luabind/lua_include.hpp>
+#include <luabind/lua_include.hpp>      // for lua_pop, lua_gettable, etc
 
-#include <luabind/config.hpp>
-#include <luabind/class.hpp>
-#include <luabind/nil.hpp>
+#include <boost/foreach.hpp>            // for auto_any_base, etc
 
-#include <cstring>
-#include <iostream>
+#include <assert.h>                     // for assert
+#include <auto_ptr.h>                   // for auto_ptr
+#include <map>                          // for map
+#include <new>                          // for operator new
+#include <string>                       // for string
+#include <utility>                      // for make_pair, pair
+#include <vector>                       // for vector, vector<>::iterator
 
 namespace luabind
 {

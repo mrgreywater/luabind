@@ -22,9 +22,14 @@
 
 #define LUABIND_BUILDING
 
+#include <luabind/class.hpp>            // for create_class
+#include <luabind/detail/class_rep.hpp>  // for class_rep, is_class_rep, etc
+
 #include <luabind/lua_include.hpp>
 
-#include <luabind/luabind.hpp>
+#include <assert.h>                     // for assert
+#include <string.h>                     // for strlen
+#include <new>                          // for operator new
 
 namespace luabind { namespace detail
 {

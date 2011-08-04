@@ -4,16 +4,23 @@
 
 #define LUABIND_BUILDING
 
-#include <limits>
-#include <map>
-#include <vector>
-#include <queue>
-#include <boost/dynamic_bitset.hpp>
-#include <boost/foreach.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
-#include <luabind/typeid.hpp>
-#include <luabind/detail/inheritance.hpp>
+
+#include <luabind/detail/inheritance.hpp>  // for class_id, cast_graph, etc
+#include <luabind/typeid.hpp>           // for type_id
+
+#include <boost/dynamic_bitset.hpp>     // for dynamic_bitset, etc
+#include <boost/foreach.hpp>            // for auto_any_base, etc
+#include <boost/tuple/tuple.hpp>        // for tuple
+#include <boost/tuple/tuple_comparison.hpp> // for operator<
+#include <boost/smart_ptr/scoped_ptr.hpp>  // for scoped_ptr
+
+#include <cstddef>                      // for ptrdiff_t
+#include <limits>                       // for numeric_limits
+#include <map>                          // for map<>::iterator, etc
+#include <queue>                        // for queue
+#include <utility>                      // for pair, make_pair
+#include <vector>                       // for vector, vector<>::iterator
+#include <algorithm>                    // for lower_bound, max
 
 namespace luabind { namespace detail {
 

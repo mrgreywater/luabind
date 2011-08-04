@@ -22,11 +22,26 @@
 
 #define LUABIND_BUILDING
 
-#include <luabind/lua_include.hpp>
 
-#include <luabind/luabind.hpp>
-#include <luabind/class_info.hpp>
-#include <luabind/detail/class_registry.hpp>
+#include <luabind/class_info.hpp>       // for class_info, etc
+#include <luabind/detail/class_registry.hpp>  // for class_registry
+#include <luabind/class.hpp>            // for class_
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/class_rep.hpp>  // for class_rep, property_tag
+#include <luabind/detail/object_rep.hpp>  // for get_instance, object_rep
+#include <luabind/detail/stack_utils.hpp>  // for stack_pop
+#include <luabind/from_stack.hpp>       // for from_stack
+#include <luabind/function.hpp>         // for def
+#include <luabind/object.hpp>           // for object, iterator_proxy, etc
+#include <luabind/scope.hpp>            // for module, scope, module_
+#include <luabind/typeid.hpp>           // for type_id
+
+#include <luabind/lua_include.hpp>      // for lua_pop, lua_tocfunction, etc
+
+#include <stddef.h>                     // for size_t
+#include <map>                          // for map, etc
+#include <string>                       // for string
+#include <utility>                      // for pair
 
 namespace luabind
 {

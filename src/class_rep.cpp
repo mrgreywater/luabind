@@ -22,14 +22,27 @@
 
 #define LUABIND_BUILDING
 
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/class_registry.hpp>  // for class_registry
+#include <luabind/detail/class_rep.hpp>  // for class_rep, etc
+#include <luabind/detail/object_rep.hpp>  // for push_new_instance, etc
+#include <luabind/detail/operator_id.hpp>  // for get_operator_name, etc
+#include <luabind/detail/primitives.hpp>  // for ltstr, null_type
+#include <luabind/detail/ref.hpp>       // for lua_reference
+#include <luabind/handle.hpp>           // for handle
+#include <luabind/typeid.hpp>           // for type_id
+
 #include <luabind/lua_include.hpp>
 
-#include <luabind/detail/stack_utils.hpp>
-#include <luabind/detail/conversion_storage.hpp>
-#include <luabind/luabind.hpp>
-#include <luabind/exception_handler.hpp>
-#include <luabind/get_main_thread.hpp>
-#include <utility>
+#include <assert.h>                     // for assert
+#include <string.h>                     // for strlen
+#include <map>                          // for map, etc
+#include <string>                       // for string
+#include <utility>                      // for pair
+#include <vector>                       // for vector, etc
+
+namespace luabind { namespace detail { class cast_graph; } }
+namespace luabind { namespace detail { class class_id_map; } }
 
 using namespace luabind::detail;
 

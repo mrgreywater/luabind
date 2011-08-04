@@ -4,7 +4,15 @@
 
 #define LUABIND_BUILDING
 
-#include <luabind/make_function.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/call.hpp>      // for function_object, etc
+#include <luabind/detail/stack_utils.hpp>  // for stack_pop
+#include <luabind/from_stack.hpp>       // for from_stack
+#include <luabind/object.hpp>           // for object, getupvalue, etc
+
+#include <luabind/lua_include.hpp>
+
+#include <string>                       // for string
 
 namespace luabind { namespace detail {
 

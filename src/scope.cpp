@@ -22,12 +22,14 @@
 
 #define LUABIND_BUILDING
 
+#include <luabind/detail/debug.hpp>     // for LUABIND_CHECK_STACK
+#include <luabind/detail/stack_utils.hpp>  // for stack_pop
+#include <luabind/scope.hpp>            // for scope, module_, etc
+
 #include <luabind/lua_include.hpp>
 
-#include <luabind/scope.hpp>
-#include <luabind/detail/debug.hpp>
-#include <luabind/detail/stack_utils.hpp>
-#include <cassert>
+#include <cassert>                      // for assert
+#include <auto_ptr.h>                   // for auto_ptr
 
 namespace luabind { namespace detail {
 

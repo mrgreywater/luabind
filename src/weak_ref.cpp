@@ -22,13 +22,13 @@
 
 #define LUABIND_BUILDING
 
-#include <algorithm>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/weak_ref.hpp>         // for weak_ref
 
 #include <luabind/lua_include.hpp>
 
-#include <luabind/config.hpp>
-#include <luabind/weak_ref.hpp>
-#include <cassert>
+#include <algorithm>                    // for swap
+#include <cassert>                      // for assert
 
 namespace luabind {
 

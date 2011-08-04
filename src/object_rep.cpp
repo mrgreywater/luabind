@@ -22,8 +22,15 @@
 
 #define LUABIND_BUILDING
 
-#include <luabind/detail/object_rep.hpp>
-#include <luabind/detail/class_rep.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/object_rep.hpp>  // for object_rep
+#include <luabind/detail/instance_holder.hpp>  // for instance_holder
+#include <luabind/detail/operator_id.hpp>  // for get_operator_name, etc
+#include <luabind/detail/class_rep.hpp>  // for property_tag, class_rep
+#include <luabind/lua_state_fwd.hpp>    // for lua_State *
+
+#include <assert.h>                     // for assert
+#include <new>                          // for operator new
 
 namespace luabind { namespace detail
 {

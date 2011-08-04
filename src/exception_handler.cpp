@@ -4,10 +4,16 @@
 
 #define LUABIND_BUILDING
 
-#include <luabind/config.hpp>
-#include <luabind/exception_handler.hpp>
-#include <luabind/error.hpp>
-#include <stdexcept>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/exception_handler.hpp>  // for exception_handler_base
+#include <luabind/error.hpp>  // for exception_handler_base
+
+#include <luabind/lua_include.hpp>
+
+#include <exception>                    // for exception
+#include <stdexcept>                    // for logic_error, runtime_error
+
+namespace luabind { class error; }
 
 #ifndef LUABIND_NO_EXCEPTIONS
 
