@@ -25,8 +25,14 @@
 #define LUABIND_CONTAINER_POLICY_HPP_INCLUDED
 
 #include <luabind/config.hpp>
-#include <luabind/detail/policy.hpp>
+#include <luabind/detail/policy.hpp>    // for policy_cons, etc
+#include <luabind/detail/decorate_type.hpp>  // for LUABIND_DECORATE_TYPE
+#include <luabind/detail/primitives.hpp>  // for null_type (ptr only), etc
+
+#include <luabind/lua_include.hpp>      // for lua_State, lua_next, etc
+
 #include <boost/mpl/apply_wrap.hpp>
+#include <boost/mpl/if.hpp>             // for if_
 
 namespace luabind { namespace detail {
 
