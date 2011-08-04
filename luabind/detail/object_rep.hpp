@@ -24,11 +24,17 @@
 #ifndef LUABIND_OBJECT_REP_HPP_INCLUDED
 #define LUABIND_OBJECT_REP_HPP_INCLUDED
 
-#include <boost/aligned_storage.hpp>
-#include <luabind/config.hpp>
-#include <luabind/detail/class_rep.hpp>
-#include <luabind/detail/instance_holder.hpp>
-#include <luabind/detail/ref.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/class_rep.hpp>  // for class_rep
+#include <luabind/detail/instance_holder.hpp>  // for instance_holder
+#include <luabind/detail/inheritance.hpp>  // for class_id
+#include <luabind/lua_state_fwd.hpp>    // for lua_State *
+
+#include <boost/aligned_storage.hpp>    // for aligned_storage
+
+#include <cstddef>                      // for size_t
+#include <cstdlib>                      // for free, malloc
+#include <utility>                      // for pair
 
 namespace luabind { namespace detail
 {
