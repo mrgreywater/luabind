@@ -8,6 +8,7 @@
 # include <luabind/config.hpp>
 # include <luabind/detail/policy.hpp>
 # include <luabind/detail/convert_to_lua.hpp>
+# include <luabind/detail/garbage_collector.hpp>
 
 namespace luabind { namespace detail {
 
@@ -32,13 +33,6 @@ struct iterator
         return 1;
     }
 
-    static int destroy(lua_State* L)
-    {
-        iterator* self = static_cast<iterator*>(lua_touserdata(L, 1));
-        self->~iterator();
-        return 0;
-    }
-
     iterator(Iterator first, Iterator last)
       : first(first)
       , last(last)
@@ -53,7 +47,7 @@ int make_range(lua_State* L, Iterator first, Iterator last)
 {
     void* storage = lua_newuserdata(L, sizeof(iterator<Iterator>));
     lua_newtable(L);
-    lua_pushcclosure(L, iterator<Iterator>::destroy, 0);
+    lua_pushcclosure(L, detail::garbage_collector<Iterator>, 0);
     lua_setfield(L, -2, "__gc");
     lua_setmetatable(L, -2);
     lua_pushcclosure(L, iterator<Iterator>::next, 1);
