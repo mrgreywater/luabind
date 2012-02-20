@@ -1,17 +1,6 @@
-/** @file
-	@brief Header
+// Copyright (c) 2004 Daniel Wallin and Arvid Norberg
+// Copyright (c) 2012 Iowa State University
 
-	@date 2012
-
-	@author
-	Ryan Pavlik
-	<rpavlik@iastate.edu> and <abiryan@ryand.net>
-	http://academic.cleardefinition.com/
-	Iowa State University Virtual Reality Applications Center
-	Human-Computer Interaction Graduate Program
-*/
-
-//          Copyright Iowa State University 2012.
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation
@@ -32,23 +21,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-#pragma once
-#ifndef INCLUDED_set_package_preload_hpp_GUID_563c882e_86f7_4ea7_8603_4594ea41737e
-#define INCLUDED_set_package_preload_hpp_GUID_563c882e_86f7_4ea7_8603_4594ea41737e
+#include "test.hpp"
+#include <luabind/luabind.hpp>
+#include <luabind/set_package_preload.hpp>
 
-// Internal Includes
-#include <luabind/config.hpp>
-#include <luabind/lua_state_fwd.hpp>
-
-// Library/third-party includes
-// - none
-
-// Standard includes
-// - none
-
-
-namespace luabind {
-
-	LUABIND_API void set_package_preload(lua_State * L, const char * modulename, int (*loader) (lua_State *));
+int f(int x)
+{
+    return x + 1;
 }
-#endif // INCLUDED_set_package_preload_hpp_GUID_563c882e_86f7_4ea7_8603_4594ea41737e
+
+int loader(lua_State* L)
+{
+    using namespace luabind;
+    module(L)
+    [
+        def("f", &f)
+    ];
+
+    return 0;
+}
+
+void test_main(lua_State* L)
+{
+    using namespace luabind;
+
+    set_package_preload(L, "testmod", &loader);
+    DOSTRING(L,
+        "require('testmod')");
+
+    DOSTRING(L, "assert(f(7) == 8)");
+}
+
