@@ -12,6 +12,9 @@
 # include <boost/mpl/begin_end.hpp>
 # include <boost/mpl/next.hpp>
 # include <boost/mpl/size.hpp>
+# include <boost/mpl/for_each.hpp>
+# include <boost/mpl/fold.hpp>
+# include <boost/mpl/identity.hpp>
 
 namespace luabind { namespace adl
 {
@@ -114,36 +117,39 @@ struct type_to_string<table<Base> >
     }
 };
 
-template <class End>
-void format_signature_aux(lua_State*, bool, End, End)
-{}
+struct format_signature_functor : boost::noncopyable {
+	format_signature_functor(lua_State * l)
+		: L(l)
+		, first(true)
+	{}
 
-template <class Iter, class End>
-void format_signature_aux(lua_State* L, bool first, Iter, End end)
-{
-    if (!first)
-        lua_pushstring(L, ",");
-    type_to_string<typename Iter::type>::get(L);
-    format_signature_aux(L, false, typename mpl::next<Iter>::type(), end);
-}
+	lua_State * L;
+	bool first;
+
+	template<typename T>
+	void operator()(mpl::identity<T>) {
+		if (!first)
+			lua_pushstring(L, ",");
+		first = false;
+		type_to_string<T>::get(L);
+	}
+};
 
 template <class Signature>
 void format_signature(lua_State* L, char const* function, Signature)
 {
-    typedef typename mpl::begin<Signature>::type first;
+    typedef typename mpl::begin<Signature>::type returnType;
 
-    type_to_string<typename first::type>::get(L);
+    type_to_string<typename returnType::type>::get(L);
 
     lua_pushstring(L, " ");
     lua_pushstring(L, function);
 
     lua_pushstring(L, "(");
-    format_signature_aux(
-        L
-      , true
-      , typename mpl::next<first>::type()
-      , typename mpl::end<Signature>::type()
-    );
+	typedef typename mpl::iterator_range<
+		typename mpl::next<returnType>::type,
+		typename mpl::end<Signature>::type > paramtypes;
+	mpl::for_each<paramtypes, mpl::make_identity<mpl::_> >(format_signature_functor(L));
     lua_pushstring(L, ")");
 
     lua_concat(L, static_cast<int>(mpl::size<Signature>()) * 2 + 2);
@@ -152,4 +158,3 @@ void format_signature(lua_State* L, char const* function, Signature)
 }} // namespace luabind::detail
 
 #endif // LUABIND_FORMAT_SIGNATURE_081014_HPP
-
