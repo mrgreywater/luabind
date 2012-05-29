@@ -26,13 +26,17 @@
 #include <luabind/lua_state_fwd.hpp>
 
 #if !defined(LUABIND_NO_RTTI) && !defined(LUABIND_WRAPPER_BASE_HPP_INCLUDED)
-# include <luabind/wrapper_base.hpp>
+# include <luabind/wrapper_base.hpp>     // for wrapped_self_t, wrap_access
 #endif
 
-#include <luabind/detail/has_get_pointer.hpp>
-#include <luabind/get_pointer.hpp>
-#include <boost/type_traits/is_polymorphic.hpp>
+#include <luabind/detail/has_get_pointer.hpp>  // for has_get_pointer
+#include <luabind/get_pointer.hpp>                // for get_pointer
+#include <luabind/detail/ref.hpp>       // for lua_reference
+
+#include <boost/type_traits/is_polymorphic.hpp>  // for is_polymorphic
 #include <boost/mpl/bool.hpp>
+
+#include <cassert>                     // for assert
 
 namespace luabind {
   struct wrap_base;

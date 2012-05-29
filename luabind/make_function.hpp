@@ -5,11 +5,14 @@
 #ifndef LUABIND_MAKE_FUNCTION_081014_HPP
 # define LUABIND_MAKE_FUNCTION_081014_HPP
 
-# include <luabind/config.hpp>
-# include <luabind/detail/object.hpp>
-# include <luabind/detail/call.hpp>
-# include <luabind/detail/deduce_signature.hpp>
-# include <luabind/detail/format_signature.hpp>
+# include <luabind/config.hpp>           // for LUABIND_API
+# include <luabind/detail/call.hpp>      // for invoke_context, etc
+# include <luabind/detail/deduce_signature.hpp>  // for deduce_signature
+# include <luabind/detail/format_signature.hpp>  // for format_signature
+# include <luabind/detail/object.hpp>    // for object
+# include <luabind/detail/primitives.hpp>  // for null_type
+
+# include <luabind/lua_include.hpp>
 
 namespace luabind {
 

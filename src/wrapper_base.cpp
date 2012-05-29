@@ -22,12 +22,12 @@
 
 #define LUABIND_BUILDING
 
-#include <luabind/config.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/class_rep.hpp>  // for class_rep
+#include <luabind/detail/object_rep.hpp>  // for object_rep
+#include <luabind/function.hpp>         // for is_luabind_function
+
 #include <luabind/lua_include.hpp>
-#include <luabind/function.hpp>
-#include <luabind/detail/object_rep.hpp>
-#include <luabind/detail/class_rep.hpp>
-#include <luabind/detail/stack_utils.hpp>
 
 namespace luabind { namespace detail
 {

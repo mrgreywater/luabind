@@ -23,7 +23,7 @@
 #ifndef WEAK_REF_040402_HPP
 #define WEAK_REF_040402_HPP
 
-#include <luabind/config.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
 
 #include <luabind/lua_state_fwd.hpp>
 
