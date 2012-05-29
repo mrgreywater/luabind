@@ -68,7 +68,7 @@
 
 #include <luabind/detail/decorate_type.hpp>
 #include <luabind/weak_ref.hpp>
-#include <luabind/back_reference_fwd.hpp>
+#include <luabind/back_reference.hpp>
 
 #include <luabind/value_wrapper.hpp>
 #include <luabind/from_stack.hpp>
@@ -1019,6 +1019,7 @@ namespace detail
     {};
 
 }} // namespace luabind::detail
+
 
 
 namespace luabind { namespace
