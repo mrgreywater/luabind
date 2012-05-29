@@ -22,6 +22,7 @@
 
 #  include <luabind/config.hpp>
 #  include <luabind/detail/policy.hpp>
+#  include <luabind/detail/object.hpp>
 #  include <luabind/yield_policy.hpp>
 
 namespace luabind { namespace detail {

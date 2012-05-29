@@ -25,9 +25,11 @@
 #define LUABIND_CLASS_INFO_HPP_INCLUDED
 
 #include <luabind/prefix.hpp>
-#include <luabind/lua_include.hpp>
-#include <luabind/luabind.hpp>
-#include <luabind/object.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/detail/object.hpp>    // for object, argument
+#include <luabind/lua_state_fwd.hpp>
+
+#include <string>                       // for string
 
 namespace luabind
 {

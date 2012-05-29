@@ -27,12 +27,25 @@
 #include <luabind/config.hpp>
 
 #ifndef LUABIND_WRAPPER_BASE_HPP_INCLUDED
-# include <luabind/wrapper_base.hpp>
+# include <luabind/wrapper_base.hpp>    // for wrapped_self_t, wrap_access
 #endif
 
-#include <luabind/detail/policy.hpp>
-#include <luabind/back_reference_fwd.hpp>
-#include <boost/type_traits/is_polymorphic.hpp>
+#include <luabind/back_reference_fwd.hpp>  // for move_back_reference
+#include <luabind/detail/policy.hpp>    // for policy_cons, etc
+
+#include <luabind/detail/decorate_type.hpp>  // for LUABIND_DECORATE_TYPE
+#include <luabind/detail/make_instance.hpp>  // for make_instance
+#include <luabind/detail/object_rep.hpp>  // for object_rep
+#include <luabind/detail/primitives.hpp>  // for null_type (ptr only), etc
+#include <luabind/detail/ref.hpp>       // for lua_reference
+#include <luabind/detail/typetraits.hpp>  // for is_nonconst_pointer
+
+#include <boost/mpl/bool.hpp>           // for bool_
+#include <boost/mpl/bool_fwd.hpp>       // for false_, true_
+#include <boost/mpl/if.hpp>             // for if_
+#include <boost/type_traits/is_polymorphic.hpp>  // for is_polymorphic
+
+#include <memory>                       // for auto_ptr
 
 namespace luabind { namespace detail 
 {

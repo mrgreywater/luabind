@@ -23,15 +23,22 @@
 #ifndef OPERATOR_040729_HPP
 #define OPERATOR_040729_HPP
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
+#include <luabind/detail/other.hpp>
+#include <luabind/detail/policy.hpp>    // for find_conversion_policy, etc
+
+
+#include <boost/mpl/eval_if.hpp>        // for eval_if
+#include <boost/mpl/identity.hpp>       // for identity
 #include <boost/mpl/apply_wrap.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <luabind/detail/other.hpp>
-#include <luabind/raw_policy.hpp>
+
+#include <luabind/lua_state_fwd.hpp>
+
+#include <string>                       // for string
 
 #if defined(__GNUC__) && __GNUC__ < 3
 # define LUABIND_NO_STRINGSTREAM
@@ -44,11 +51,13 @@
 #ifdef LUABIND_NO_STRINGSTREAM
 #include <strstream>
 #else
-#include <sstream>
+#include <sstream>                      // for stringstream
 #endif
+
 
 namespace luabind { namespace detail {
 
+    struct cpp_to_lua;
     template<class W, class T> struct unwrap_parameter_type;
     template<class Derived> struct operator_ {};
 
@@ -61,6 +70,7 @@ namespace luabind { namespace detail {
         return x;
     }
 #endif
+
     
 }} // namespace luabind
 

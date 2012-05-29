@@ -24,14 +24,14 @@
 #define LUABIND_ERROR_HPP_INCLUDED
 
 #include <luabind/prefix.hpp>
-#include <exception>
-#include <luabind/config.hpp>
-#include <luabind/error_callback_fun.hpp>
-#include <luabind/lua_state_fwd.hpp>
+#include <luabind/config.hpp>           // for LUABIND_API
+#include <luabind/error_callback_fun.hpp>  // for pcall_callback_fun
 
 #ifndef LUABIND_NO_EXCEPTIONS
-#include <luabind/typeid.hpp>
+#include <luabind/typeid.hpp>           // for type_id
+#include <exception>                    // for exception
 #endif
+
 
 namespace luabind
 {

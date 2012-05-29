@@ -25,15 +25,31 @@
 #ifndef LUABIND_WRAPPER_BASE_HPP_INCLUDED
 #define LUABIND_WRAPPER_BASE_HPP_INCLUDED
 
-#include <luabind/config.hpp>
-#include <luabind/weak_ref.hpp>
-#include <luabind/detail/ref.hpp>
-#include <luabind/detail/call_member.hpp>
 
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <luabind/config.hpp>           // for LUABIND_MAX_ARITY, etc
+#include <luabind/detail/ref.hpp>       // for lua_reference
+#include <luabind/weak_ref.hpp>         // for weak_ref
+
+#include <luabind/lua_include.hpp>         // for weak_ref
+
+#include <boost/mpl/if.hpp>             // for if_
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/logical/bool.hpp>  // for BOOST_PP_BOOL_0, etc
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>  // for BOOST_PP_ENUM, etc
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/tuple/detail/tuple_basic.hpp>  // for tuple
+#include <boost/type_traits/is_void.hpp>  // for is_void
 
-#include <stdexcept>
+#include <stdexcept>                    // for runtime_error
+
+namespace luabind { namespace detail { template <class Ret, class Tuple> class proxy_member_caller; } }
+namespace luabind { namespace detail { template <class T> struct type_; } }
+namespace luabind { namespace detail { template <class Tuple> class proxy_member_void_caller; } }
 
 namespace luabind
 {

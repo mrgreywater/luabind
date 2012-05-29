@@ -24,9 +24,14 @@
 #define LUABIND_HANDLE_050420_HPP
 
 #include <luabind/lua_include.hpp>
-#include <luabind/value_wrapper.hpp>
+
+#include <boost/mpl/bool.hpp>           // for bool_
+#include <boost/mpl/bool_fwd.hpp>       // for true_
+
+#include <algorithm>                    // for swap
 
 namespace luabind {
+template <class T> struct value_wrapper_traits;
 
 // A reference to a Lua value. Represents an entry in the
 // registry table.

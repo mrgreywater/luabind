@@ -25,7 +25,10 @@
 #define LUABIND_RAW_POLICY_HPP_INCLUDED
 
 #include <luabind/config.hpp>
-#include <luabind/detail/policy.hpp>
+#include <luabind/detail/policy.hpp>    // for index_map, policy_cons, etc
+#include <luabind/detail/primitives.hpp>  // for by_pointer, etc
+
+#include <luabind/lua_state_fwd.hpp>
 
 namespace luabind { namespace detail  {
 

@@ -25,7 +25,9 @@
 #define LUABIND_YIELD_POLICY_HPP_INCLUDED
 
 #include <luabind/config.hpp>
-#include <luabind/detail/policy.hpp>
+#include <luabind/detail/policy.hpp>    // for index_map, policy_cons
+#include <luabind/lua_state_fwd.hpp>    // for lua_State
+namespace luabind { namespace detail { struct null_type; } }
 
 namespace luabind { namespace detail 
 {

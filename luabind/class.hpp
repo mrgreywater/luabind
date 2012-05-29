@@ -70,47 +70,47 @@
 #include <luabind/prefix.hpp>
 #include <luabind/config.hpp>
 
-#include <string>
-#include <map>
-#include <vector>
-#include <cassert>
+#include <luabind/detail/object.hpp>    // for object, property
+#include <luabind/detail/policy.hpp>    // for is_primitive (ptr only), etc
+#include <luabind/from_stack.hpp>       // for from_stack
+#include <luabind/make_function.hpp>    // for make_function, add_overload
+#include <luabind/scope.hpp>            // for registration, scope
+#include <luabind/typeid.hpp>           // for type_id
+#include <luabind/detail/call_member.hpp>  // for construct
+#include <luabind/detail/constructor.hpp>  // for construct
+#include <luabind/detail/deduce_signature.hpp>  // for deduce_signature
+#include <luabind/detail/enum_maker.hpp>  // for enum_maker
+#include <luabind/detail/inheritance.hpp>  // for registered_class, etc
+#include <luabind/detail/link_compatibility.hpp>
+#include <luabind/detail/primitives.hpp>  // for null_type, type_
+#include <luabind/detail/property.hpp>  // for access_member_ptr
+#include <luabind/detail/signature_match.hpp>  // for constructor
 
-#include <boost/bind.hpp>
+#include <luabind/lua_include.hpp>
+
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/add_const.hpp>  // for add_const
+#include <boost/type_traits/add_reference.hpp>  // for add_reference
 #include <boost/type_traits/is_member_object_pointer.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/lambda.hpp>
-#include <boost/mpl/logical.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/logical.hpp>
+#include <boost/type_traits/is_polymorphic.hpp>  // for is_polymorphic
+#include <boost/type_traits/is_same.hpp> // for is_same
+#include <boost/type_traits/is_pointer.hpp>
+#include <boost/mpl/apply.hpp>          // for apply1
+#include <boost/mpl/bool.hpp>           // for bool_
+#include <boost/mpl/bool_fwd.hpp>       // for true_, false_
+#include <boost/mpl/find_if.hpp>        // for find_if
+#include <boost/mpl/if.hpp>             // for if_
+#include <boost/mpl/not.hpp>            // for not_
+#include <boost/mpl/or.hpp>             // for or_
+#include <boost/mpl/protect.hpp>        // for protect
+#include <boost/mpl/placeholders.hpp>   // for _
+#include <boost/mpl/vector/vector10.hpp>
 
-#include <luabind/config.hpp>
-#include <luabind/scope.hpp>
-#include <luabind/back_reference.hpp>
-#include <luabind/function.hpp>
-#include <luabind/dependency_policy.hpp>
-#include <luabind/detail/constructor.hpp>
-#include <luabind/detail/call.hpp>
-#include <luabind/detail/deduce_signature.hpp>
-#include <luabind/detail/primitives.hpp>
-#include <luabind/detail/property.hpp>
-#include <luabind/detail/typetraits.hpp>
-#include <luabind/detail/class_rep.hpp>
-#include <luabind/detail/call.hpp>
-#include <luabind/detail/object_rep.hpp>
-#include <luabind/detail/call_member.hpp>
-#include <luabind/detail/enum_maker.hpp>
-#include <luabind/detail/operator_id.hpp>
-#include <luabind/detail/pointee_typeid.hpp>
-#include <luabind/detail/link_compatibility.hpp>
-#include <luabind/detail/inheritance.hpp>
-#include <luabind/detail/signature_match.hpp>
-#include <luabind/no_dependency.hpp>
-#include <luabind/typeid.hpp>
+#include <memory>                       // for auto_ptr
+#include <string>                       // for string
+
 
 // to remove the 'this' used in initialization list-warning
 #ifdef _MSC_VER
@@ -131,9 +131,15 @@ namespace luabind
 	{
 		struct unspecified {};
 
+		struct you_need_to_define_a_get_const_holder_function_for_your_smart_ptr {};
+
+		struct class_registration;
+
 		template<class Derived> struct operator_;
 
-		struct you_need_to_define_a_get_const_holder_function_for_your_smart_ptr {};
+		template <int A, int B> struct dependency_policy;
+
+		struct no_dependency_policy;
 	}
 
 	template<class T, class X1 = detail::unspecified, class X2 = detail::unspecified, class X3 = detail::unspecified>
@@ -255,8 +261,6 @@ namespace luabind
 			
 			T& self;
 		};
-
-		struct class_registration;
 
 		struct LUABIND_API class_base : scope
 		{

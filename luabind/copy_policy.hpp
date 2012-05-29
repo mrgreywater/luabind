@@ -5,12 +5,14 @@
 #ifndef LUABIND_COPY_POLICY_081021_HPP
 # define LUABIND_COPY_POLICY_081021_HPP
 
-# include <luabind/detail/policy.hpp>
+#include <luabind/detail/policy.hpp>    // for index_map, policy_cons, etc
+#include <luabind/lua_include.hpp>      // for lua_State, lua_pushnil
 
 namespace luabind {
 
 namespace detail
 {
+  struct null_type;
 
   struct copy_converter
   {

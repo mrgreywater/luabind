@@ -9,6 +9,8 @@
 # include <luabind/detail/convert_to_lua.hpp>  // for convert_to_lua
 # include <luabind/detail/policy.hpp>    // for index_map, etc
 
+# include <luabind/lua_include.hpp>
+
 # include <new>                          // for operator new
 
 namespace luabind { namespace detail {

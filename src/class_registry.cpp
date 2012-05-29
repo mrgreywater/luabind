@@ -80,8 +80,6 @@ namespace luabind { namespace detail {
 
     } // namespace unnamed
 
-    class class_rep;
-
     class_registry::class_registry(lua_State* L)
         : m_cpp_class_metatable(create_cpp_class_metatable(L))
         , m_lua_class_metatable(create_lua_class_metatable(L))
