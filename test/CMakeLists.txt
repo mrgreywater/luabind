@@ -46,6 +46,7 @@ set(TESTS
 	shared_ptr
 	simple_class
 	smart_ptr_attributes
+	static_member
 	super_leak
 	table
 	tag_function
