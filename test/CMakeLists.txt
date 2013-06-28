@@ -7,7 +7,7 @@ add_library(testmain
     # function:
     "test_has_get_pointer.cpp"
     "test_typetraits.cpp")
-
+    
 target_link_libraries(testmain ${LUA_LIBRARIES} luabind)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
