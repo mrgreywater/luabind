@@ -1,6 +1,6 @@
 include_directories(
     ${Boost_INCLUDE_DIRS} ${LUA_INCLUDE_DIR} ${CMAKE_SOURCE_DIR})
-    
+
 add_executable(benchmark "benchmark.cpp")
 target_link_libraries(benchmark ${LUA_LIBRARIES} luabind)
 
@@ -10,7 +10,7 @@ add_library(testmain
     # function:
     "test_has_get_pointer.cpp"
     "test_typetraits.cpp")
-    
+
 target_link_libraries(testmain ${LUA_LIBRARIES} luabind)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -29,6 +29,7 @@ set(TESTS
     "construction"
     "create_in_thread"
     "def_from_base"
+    "destruction"
     "dynamic_type"
     "exceptions"
     "exception_handlers"
