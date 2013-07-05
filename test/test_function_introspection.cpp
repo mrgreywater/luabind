@@ -26,6 +26,8 @@
 #include <luabind/function_introspection.hpp>
 #include <luabind/adopt_policy.hpp>
 
+namespace {
+
 struct base : counted_type<base>
 {
     int f()
@@ -46,11 +48,13 @@ int f(int x, int y)
     return x + y;
 }
 
+} // namespace unnamed
+
 
 void test_main(lua_State* L)
 {
     using namespace luabind;
-    
+
     bind_function_introspection(L);
 
     DOSTRING(L,
@@ -60,33 +64,33 @@ void test_main(lua_State* L)
 
     module(L)
     [
-        def("f", (int(*)(int)) &f)
+        def("f", static_cast<int(*)(int)>(&f))
     ];
-    
-    
+
+
     DOSTRING(L,
         "assert(function_info.get_function_name(f) == 'f')");
-    
+
     DOSTRING(L,
         "assert(function_info.get_function_name(x) == '')");
-        
-    
+
+
     DOSTRING(L,
         "for _,v in ipairs(function_info.get_function_overloads(f)) do print(v) end");
-    
+
     DOSTRING(L,
         "assert(#(function_info.get_function_overloads(f)) == 1)");
     /*
         def("f", (int(*)(int, int)) &f),
         def("create", &create_base, adopt(return_value))
 //        def("set_functor", &set_functor)
-            
+
 #if !(BOOST_MSVC < 1300)
         ,
         def("test_value_converter", &test_value_converter),
         def("test_pointer_converter", &test_pointer_converter)
 #endif
-            
+
     ];
 
     DOSTRING(L,
