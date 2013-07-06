@@ -23,15 +23,16 @@
 #ifndef LUABIND_ERROR_HPP_INCLUDED
 #define LUABIND_ERROR_HPP_INCLUDED
 
-#include <luabind/prefix.hpp>
-#include <exception>
 #include <luabind/config.hpp>
 #include <luabind/error_callback_fun.hpp>
 #include <luabind/lua_state_fwd.hpp>
+#include <luabind/prefix.hpp>
 
 #ifndef LUABIND_NO_EXCEPTIONS
 #include <luabind/typeid.hpp>
 #endif
+
+#include <exception>
 
 namespace luabind
 {
@@ -83,8 +84,8 @@ namespace luabind
 
 #endif
 
-	LUABIND_API void set_pcall_callback(pcall_callback_fun e);
-	LUABIND_API pcall_callback_fun get_pcall_callback();
+    LUABIND_API void set_pcall_callback(pcall_callback_fun e);
+    LUABIND_API pcall_callback_fun get_pcall_callback();
 }
 
 #endif // LUABIND_ERROR_HPP_INCLUDED

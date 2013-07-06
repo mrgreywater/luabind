@@ -25,21 +25,20 @@
 
 // Internal Includes
 #include <luabind/config.hpp>
-#include <luabind/lua_state_fwd.hpp>
 
 // Library/third-party includes
-// - none
+#include <luabind/lua_state_fwd.hpp>
 
 // Standard includes
 // - none
 
 namespace luabind
 {
-	class type_id;
+    class type_id;
 
-	typedef void(*error_callback_fun)(lua_State*);
-	typedef void(*cast_failed_callback_fun)(lua_State*, type_id const&);
-	typedef int(*pcall_callback_fun)(lua_State*);
+    typedef void(*error_callback_fun)(lua_State*);
+    typedef void(*cast_failed_callback_fun)(lua_State*, type_id const&);
+    typedef int(*pcall_callback_fun)(lua_State*);
 }
 
 #endif // INCLUDED_error_callback_fun_hpp_GUID_1150976a_4348_495f_99ce_9d7edd00a0b8

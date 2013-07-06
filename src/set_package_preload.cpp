@@ -1,15 +1,15 @@
 /**
-	@file
-	@brief Implementation
+    @file
+    @brief Implementation
 
-	@date 2012
+    @date 2012
 
-	@author
-	Ryan Pavlik
-	<rpavlik@iastate.edu> and <abiryan@ryand.net>
-	http://academic.cleardefinition.com/
-	Iowa State University Virtual Reality Applications Center
-	Human-Computer Interaction Graduate Program
+    @author
+    Ryan Pavlik
+    <rpavlik@iastate.edu> and <abiryan@ryand.net>
+    http://academic.cleardefinition.com/
+    Iowa State University Virtual Reality Applications Center
+    Human-Computer Interaction Graduate Program
 */
 
 //          Copyright Iowa State University 2012.
@@ -36,9 +36,9 @@
 #define LUABIND_BUILDING
 
 // Internal Includes
-#include <luabind/set_package_preload.hpp>
 #include <luabind/config.hpp>           // for LUABIND_API
 #include <luabind/object.hpp>           // for object, rawget, globals
+#include <luabind/set_package_preload.hpp>
 
 // Library/third-party includes
 #include <luabind/lua_include.hpp>      // for lua_pushstring, lua_rawset, etc

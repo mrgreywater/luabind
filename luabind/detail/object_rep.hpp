@@ -24,10 +24,11 @@
 #ifndef LUABIND_OBJECT_REP_HPP_INCLUDED
 #define LUABIND_OBJECT_REP_HPP_INCLUDED
 
-#include <boost/aligned_storage.hpp>
 #include <luabind/config.hpp>
 #include <luabind/detail/instance_holder.hpp>
 #include <luabind/detail/ref.hpp>
+
+#include <boost/aligned_storage.hpp>
 
 namespace luabind { namespace detail
 {
@@ -38,7 +39,7 @@ namespace luabind { namespace detail
     // on the top of the stack (the input self reference will
     // be popped)
     LUABIND_API void do_call_member_selection(lua_State* L, char const* name);
-    
+
     class class_rep;
 
     void finalize(lua_State* L, class_rep* crep);
