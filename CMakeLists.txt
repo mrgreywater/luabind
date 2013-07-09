@@ -14,7 +14,7 @@ if (MSVC)
     if (LUABIND_ENABLE_WARNINGS)
         add_definitions(
             "/W4" # Warning level 4
-
+            
             # Disable incorrect warning C4709
             # ("comma operator within array index expression"):
             "/wd4709")
