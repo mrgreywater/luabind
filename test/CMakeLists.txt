@@ -1,6 +1,6 @@
 include_directories(
     ${Boost_INCLUDE_DIRS} ${LUA_INCLUDE_DIR} ${CMAKE_SOURCE_DIR})
-    
+
 add_executable(benchmark "benchmark.cpp")
 target_link_libraries(benchmark luabind)
 
@@ -9,7 +9,7 @@ add_library(testmain STATIC
     # These tests consist only of compile time asserts and define no test_main
     # function:
     "test_has_get_pointer.cpp")
-    
+
 target_link_libraries(testmain luabind)
 
 if (BUILD_SHARED_LIBS AND MSVC)
@@ -97,10 +97,16 @@ if (LUABIND_BUILD_HEADER_TESTS)
         file(RELATIVE_PATH SHORTNAME "${BASE}" "${FULLHEADER}")
         string(REPLACE "/" "_" SHORTNAME "${SHORTNAME}")
         string(REPLACE ".hpp" "" SHORTNAME "${SHORTNAME}")
-        configure_file(test_headercompile.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/test_headercompile_${SHORTNAME}.cpp" @ONLY)
-
-        add_executable(test_headercompile_${SHORTNAME} "${CMAKE_CURRENT_BINARY_DIR}/test_headercompile_${SHORTNAME}.cpp")
-        set_property(TARGET test_headercompile_${SHORTNAME} PROPERTY FOLDER "Tests/Headers")
-        target_link_libraries(test_headercompile_${SHORTNAME} luabind)
+        set (targetname test_headercompile_${SHORTNAME})
+        set (cppname "${CMAKE_CURRENT_BINARY_DIR}/${targetname}.cpp")
+        configure_file(test_headercompile.cpp.in "${cppname}" @ONLY)
+        add_executable(${targetname} ${cppname})
+        if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND LUABIND_ENABLE_WARNINGS)
+            # Clang complains about '#define LUABIND_TEST_HEADERCOMPILE'.
+            set_property(TARGET ${targetname}
+                    PROPERTY COMPILE_FLAGS "-Wno-unused-macros")
+        endif()
+        set_property(TARGET ${targetname} PROPERTY FOLDER "Tests/Headers")
+        target_link_libraries(${targetname} luabind)
     endforeach()
 endif()
