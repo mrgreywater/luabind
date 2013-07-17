@@ -57,7 +57,7 @@ template <class Iterator>
 int make_range(lua_State* L, Iterator first, Iterator last)
 {
     void* storage = lua_newuserdata(L, sizeof(iterator<Iterator>));
-    lua_newtable(L);
+    lua_createtable(L, 0, 1);
     lua_pushcclosure(L, iterator<Iterator>::destroy, 0);
     lua_setfield(L, -2, "__gc");
     lua_setmetatable(L, -2);
@@ -110,7 +110,7 @@ namespace luabind {
 
     detail::policy_cons<detail::iterator_policy, detail::null_type> const
         return_stl_iterator = {};
-    
+
     namespace detail
     {
         inline void ignore_unused_return_stl_iterator()
