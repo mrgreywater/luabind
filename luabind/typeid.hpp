@@ -11,6 +11,7 @@
 
 # include <cstdlib>
 # include <cstring>
+# include <string>
 # include <typeinfo>
 
 // boost/units/detail/utility.hpp
@@ -25,7 +26,7 @@
       || (defined(__sgi) && defined(__host_mips)) \
       || (defined(__hpux) && defined(__HP_aCC)) \
       || (defined(linux) && defined(__INTEL_COMPILER) && defined(__ICC))
-#  define LUABIND_SAFE_TYPEID 
+#  define LUABIND_SAFE_TYPEID
 # endif
 
 namespace luabind {
