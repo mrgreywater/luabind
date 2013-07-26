@@ -190,7 +190,7 @@ void test_main(lua_State* L)
             "^operator_tester2 object: "
         "'))");
     DOSTRING(L, "print(test2)");
-
+    
     DOSTRING_EXPECTED(L,
         "local d = test2 / test3",
         "class operator_tester2: no __div operator defined.");
