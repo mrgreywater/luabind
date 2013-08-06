@@ -75,7 +75,7 @@ void test_main(lua_State* L)
             .def(constructor<>()),
         def("needs_b", &needs_b),
         def("needs_i", &needs_i)
-
+        
 #ifndef LUABIND_NO_STD_SHARED_PTR
         ,
         class_<B2, std::shared_ptr<B2> >("B2")
@@ -116,7 +116,7 @@ void test_main(lua_State* L)
         "d = D()\n"
         "needs_b(d)\n" // test that automatic upcasting works
     );
-
+    
     // upcast to class which is neither the template parameter of
     // enable_shared_from_this nor a direct match to the holder type:
     DOSTRING(L, "needs_i(d)");
