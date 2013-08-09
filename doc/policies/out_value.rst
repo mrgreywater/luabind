@@ -1,13 +1,13 @@
 .. _policy-out_value:
 
 out_value
-----------------
+---------
 
 Motivation
 ~~~~~~~~~~
 
 This policy makes it possible to wrap functions that take non-const references
-or pointer to non-const as it's parameters with the intention to write return 
+or pointer to non-const as it's parameters with the intention to write return
 values to them. Since it's impossible to pass references to primitive types
 in lua, this policy will add another return value with the value after the
 call. If the function already has one return value, one instance of this
@@ -17,14 +17,14 @@ the lua manual).
 Defined in
 ~~~~~~~~~~
 
-.. parsed-literal::
+::
 
     #include <luabind/out_value_policy.hpp>
 
 Synopsis
 ~~~~~~~~
 
-.. parsed-literal::
+::
 
     out_value(index, policies = none)
 
@@ -44,15 +44,19 @@ Parameter       Purpose
 Example
 ~~~~~~~
 
-.. parsed-literal::
+::
 
     void f1(float& val) { val = val + 10.f; }
-    void f2(float\* val) { \*val = \*val + 10.f; }
+    void f2(float* val) { *val = *val + 10.f; }
+
+.. parsed-literal::
 
     module(L)
     [
         def("f", &f, **out_value(_1)**)
     ];
+
+.. code-block:: lua
 
     Lua 5.0  Copyright (C) 1994-2003 Tecgraf, PUC-Rio
     > print(f1(10))
