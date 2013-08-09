@@ -303,7 +303,7 @@ std::ostream. Like this example:
     std::ostream& operator<<(std::ostream&, number&);
 
     ...
-
+    
     module(L)
     [
         class_<number>("number")
@@ -314,7 +314,7 @@ std::ostream. Like this example:
 Nested scopes and static functions
 ----------------------------------
 
-It is possible to add nested scopes to a class. This is useful when you need
+It is possible to add nested scopes to a class. This is useful when you need 
 to wrap a nested class, or a static function.
 
 .. parsed-literal::
@@ -335,11 +335,11 @@ It's also possible to add namespaces to classes using the same syntax.
 
 Derived classes
 ---------------
-
+  
 If you want to register classes that derives from other classes, you can
 specify a template parameter ``bases<>`` to the ``class_`` instantiation. The
 following hierarchy::
-
+   
     struct A {};
     struct B : A {};
 
@@ -492,7 +492,7 @@ expect:
           prototype (``ptr_t shared_from_this()`` with the expression ::
 
             shared_ptr<RequestedT>(raw->shared_from_this(), raw)
-
+        
           being valid, where ``raw`` is of type ``RequestedT*`` and points to
           the C++ object in Lua.
 
