@@ -1,7 +1,3 @@
-+++++++++++++++++++
- luabind |version|
-+++++++++++++++++++
-
 Introduction
 ============
 
@@ -9,16 +5,16 @@ Luabind is a library that helps you create bindings between C++ and Lua. It has
 the ability to expose functions and classes, written in C++, to Lua. It will
 also supply the functionality to define classes in Lua and let them derive from
 other Lua classes or C++ classes. Lua classes can override virtual functions
-from their C++ base classes. It is written towards Lua 5.0, and does not work
-with Lua 4.
+from their C++ base classes. It is written towards Lua 5.2 but should also
+work with 5.1.
 
 It is implemented utilizing template meta programming. That means that you
 don't need an extra preprocess pass to compile your project (it is done by the
-compiler). It also means you don't (usually) have to know the exact signature 
-of each function you register, since the library will generate code depending 
-on the compile-time type of the function (which includes the signature). The 
-main drawback of this approach is that the compilation time will increase for 
-the file that does the registration, it is therefore recommended that you 
+compiler). It also means you don't (usually) have to know the exact signature
+of each function you register, since the library will generate code depending
+on the compile-time type of the function (which includes the signature). The
+main drawback of this approach is that the compilation time will increase for
+the file that does the registration, it is therefore recommended that you
 register everything in the same cpp-file.
 
 Luabind is released under the terms of the `MIT license`_.
@@ -42,20 +38,20 @@ Features
 
 Luabind supports:
 
- - Overloaded free functions 
- - C++ classes in Lua 
- - Overloaded member functions 
- - Operators 
- - Properties 
+ - Overloaded free functions
+ - C++ classes in Lua
+ - Overloaded member functions
+ - Operators
+ - Properties
  - Enums (also C++11 ``enum class`` if available)
- - Lua functions in C++ 
- - Lua classes in C++ 
- - Lua classes (single inheritance) 
- - Derives from Lua or C++ classes 
- - Override virtual functions from C++ classes 
- - Implicit casts between registered types 
- - Best match signature matching 
- - Return value policies and parameter policies 
+ - Lua functions in C++
+ - Lua classes in C++
+ - Lua classes (single inheritance)
+ - Derives from Lua or C++ classes
+ - Override virtual functions from C++ classes
+ - Implicit casts between registered types
+ - Best match signature matching
+ - Return value policies and parameter policies
 
 
 Portability
