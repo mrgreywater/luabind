@@ -202,6 +202,11 @@ namespace luabind
             >::type type;
         };
 
+        // prints the types of the values on the stack, in the
+        // range [start_index, lua_gettop()]
+
+        LUABIND_API std::string stack_content_by_name(lua_State* L, int start_index);
+
         struct LUABIND_API create_class
         {
             static int stage1(lua_State* L);
