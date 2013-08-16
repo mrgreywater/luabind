@@ -40,7 +40,9 @@
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/type_traits/is_enum.hpp>
 #include <boost/type_traits/is_pointer.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/version.hpp>
 
 #include <luabind/back_reference_fwd.hpp>
