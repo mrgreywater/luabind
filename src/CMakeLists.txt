@@ -118,7 +118,7 @@ set(LUABIND_DETAIL_API
     ../luabind/detail/yes_no.hpp)
 source_group(Internal FILES ${LUABIND_DETAIL_API})
 
-set(LUABIND_EXTRA_LIBS)
+set(LUABIND_EXTRA_LIBS ${CMAKE_DL_LIBS})
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251")
 elseif(CMAKE_COMPILER_IS_GNUCXX)
