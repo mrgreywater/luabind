@@ -142,13 +142,12 @@ void test_main(lua_State* L)
     }
     catch (luabind::error const&)
     {
-        if (std::string("[string \"function failing_fun() error('expected "
-#if LUA_VERSION_NUM >= 502
-            "error ..."
-#else
-            "erro..."
-#endif
-            "\"]:1: expected error message") != lua_tostring(L, -1))
+        // LuaJIT 2.0 and Lua >= 5.2 will return expected1
+        std::string expected52("[string \"function failing_fun() error('expected error ...\"]:1: expected error message");
+        // Lua < 5.2 will return expected2
+        std::string expected51("[string \"function failing_fun() error('expected erro...\"]:1: expected error message");
+        std::string result(lua_tostring(L, -1));
+        if (result != expected51 && result != expected52)
         {
             TEST_ERROR("function failed with unexpected error message");
         }
