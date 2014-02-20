@@ -46,27 +46,30 @@ extern "C"
 # define luaL_tolstring lua_tolstring
 # define LUA_OK 0
 
-inline void lua_rawsetp(lua_State* L, int t, void* k)
+inline int lua_absindex(lua_State* L, int i)
 {
-    lua_pushlightuserdata(L, k);
-    lua_insert(L, -2); // Move key beneath value.
-    if (t < 0)
-        t -= 1; // Adjust for pushed k.
-    lua_rawset(L, t);
+    if (i < 0 && i > LUA_REGISTRYINDEX)
+    i += lua_gettop(L) + 1;
+    return i;
 }
 
-inline void lua_rawgetp(lua_State* L, int t, void* k)
+inline void lua_rawsetp(lua_State* L, int i, void* p)
 {
-    lua_pushlightuserdata(L, k);
-    if (t < 0)
-        t -= 1; // Adjust for pushed k.
-    lua_rawget(L, t);
+    int abs_i = lua_absindex(L, i);
+    luaL_checkstack(L, 1, "not enough stack slots");
+    lua_pushlightuserdata(L, (void*)p);
+    lua_insert(L, -2);
+    lua_rawset(L, abs_i);
 }
 
-inline int lua_absindex(lua_State* L, int idx)
+inline void lua_rawgetp(lua_State* L, int i, void* p)
 {
-    return idx < 0 ? lua_gettop(L) + idx + 1 : idx;
+    int abs_i = lua_absindex(L, i);
+    lua_pushlightuserdata(L, (void*)p);
+    lua_rawget(L, abs_i);
 }
+
+
 #endif
 
 #endif // LUABIND_LUA_INCLUDE_HPP_INCLUDED
