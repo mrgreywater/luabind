@@ -43,9 +43,13 @@ extern "C"
 # define lua_pushglobaltable(L) lua_pushvalue(L, LUA_GLOBALSINDEX)
 # define lua_getuservalue lua_getfenv
 # define lua_setuservalue lua_setfenv
-# define luaL_tolstring lua_tolstring
 # define LUA_OK 0
 
+//
+// The following compatibility functions were taken from lua-compat-5.2
+// (Copyright © 2013 Hisham Muhammad), distributed under the MIT license.
+// See https://github.com/hishamhm/lua-compat-5.2
+//
 inline int lua_absindex(lua_State* L, int i)
 {
     if (i < 0 && i > LUA_REGISTRYINDEX)
@@ -69,7 +73,33 @@ inline void lua_rawgetp(lua_State* L, int i, void* p)
     lua_rawget(L, abs_i);
 }
 
+inline const char *luaL_tolstring(lua_State *L, int idx, size_t *len)
+{
+  if (!luaL_callmeta(L, idx, "__tostring")) {
+    int t = lua_type(L, idx);
+    switch (t) {
+      case LUA_TNIL:
+        lua_pushliteral(L, "nil");
+        break;
+      case LUA_TSTRING:
+      case LUA_TNUMBER:
+        lua_pushvalue(L, idx);
+        break;
+      case LUA_TBOOLEAN:
+        if (lua_toboolean(L, idx))
+          lua_pushliteral(L, "true");
+        else
+          lua_pushliteral(L, "false");
+        break;
+      default:
+        lua_pushfstring(L, "%s: %p", lua_typename(L, t),
+                                     lua_topointer(L, idx));
+        break;
+    }
+  }
+  return lua_tolstring(L, -1, len);
+}
 
-#endif
+#endif // LUA_VERSION_NUM < 502
 
 #endif // LUABIND_LUA_INCLUDE_HPP_INCLUDED
