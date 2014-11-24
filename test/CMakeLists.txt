@@ -37,6 +37,7 @@ set(TESTS
     null_pointer
     object
     operators
+    out_value
     package_preload
     policies
     private_destructors
