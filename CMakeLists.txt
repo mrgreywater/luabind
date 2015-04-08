@@ -5,7 +5,7 @@
 
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
-project(LuaBind)
+project(LuaBind CXX)
 
 set(CPACK_PACKAGE_VERSION_MAJOR "0")
 set(CPACK_PACKAGE_VERSION_MINOR "9")
@@ -21,25 +21,13 @@ if(NOT Boost_FOUND)
     set(Boost_USE_STATIC_LIBS     ON)
     set(Boost_USE_MULTITHREADED   ON)
     set(Boost_USE_STATIC_RUNTIME OFF)
-    find_package(Boost REQUIRED)
+    find_package(Boost 1.46.1 QUIET REQUIRED)
+    message(STATUS "Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
 endif()
 
-if(NOT LUA_FOUND AND NOT LUA51_FOUND AND NOT LUA52_FOUND)
-    set(LUABIND_LUA_VERSION "" CACHE STRING
-        "51 or 52; empty to use 51 if 52 cannot be found and 52 otherwise.")
-
-    if(LUABIND_LUA_VERSION)
-        find_package("Lua${LUABIND_LUA_VERSION}" REQUIRED)
-    else()
-        find_package(Lua52)
-        if(NOT LUA52_FOUND)
-            find_package(Lua51)
-            if(NOT LUA51_FOUND)
-                message(FATAL_ERROR "Neither Lua 5.1 nor 5.2 could be found.")
-            endif()
-        endif()
-    endif()
-    set(LUA_INCLUDE_DIRS "${LUA_INCLUDE_DIR}")
+if(NOT LUA_FOUND)
+    find_package(LuaLibs QUIET REQUIRED)
+    message(STATUS "Lua library version: ${LUA_VERSION_STRING}")
 endif()
 
 set(LUABIND_KNOWS_CXX11 ON)
@@ -204,7 +192,7 @@ endif()
 include_directories(${Boost_INCLUDE_DIRS}
     "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_BINARY_DIR}"
-    ${LUA_INCLUDE_DIRS})
+    ${LUA_INCLUDE_DIR})
 
 add_subdirectory(src)
 
@@ -226,6 +214,6 @@ if(LUABIND_INSTALL)
         set(INSTALL_CMAKE_DIR_LUA lib/CMake/Lua52)
     endif()
     install(FILES "cmake/Modules/FindLuabind.cmake" DESTINATION ${INSTALL_CMAKE_DIR})
-    install(FILES "cmake/Modules/FindLua52.cmake" DESTINATION ${INSTALL_CMAKE_DIR_LUA})
+    install(FILES "cmake/Modules/FindLuaLibs.cmake" DESTINATION ${INSTALL_CMAKE_DIR_LUA})
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/luabind/build_information.hpp" DESTINATION include/luabind)
 endif()

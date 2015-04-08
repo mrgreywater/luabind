@@ -43,30 +43,63 @@ extern "C"
 # define lua_pushglobaltable(L) lua_pushvalue(L, LUA_GLOBALSINDEX)
 # define lua_getuservalue lua_getfenv
 # define lua_setuservalue lua_setfenv
-# define luaL_tolstring lua_tolstring
 # define LUA_OK 0
 
-inline void lua_rawsetp(lua_State* L, int t, void* k)
+//
+// The following compatibility functions were taken from lua-compat-5.2
+// (Copyright © 2013 Hisham Muhammad), distributed under the MIT license.
+// See https://github.com/hishamhm/lua-compat-5.2
+//
+inline int lua_absindex(lua_State* L, int i)
 {
-    lua_pushlightuserdata(L, k);
-    lua_insert(L, -2); // Move key beneath value.
-    if (t < 0)
-        t -= 1; // Adjust for pushed k.
-    lua_rawset(L, t);
+    if (i < 0 && i > LUA_REGISTRYINDEX)
+    i += lua_gettop(L) + 1;
+    return i;
 }
 
-inline void lua_rawgetp(lua_State* L, int t, void* k)
+inline void lua_rawsetp(lua_State* L, int i, void* p)
 {
-    lua_pushlightuserdata(L, k);
-    if (t < 0)
-        t -= 1; // Adjust for pushed k.
-    lua_rawget(L, t);
+    int abs_i = lua_absindex(L, i);
+    luaL_checkstack(L, 1, "not enough stack slots");
+    lua_pushlightuserdata(L, reinterpret_cast<void*>(p));
+    lua_insert(L, -2);
+    lua_rawset(L, abs_i);
 }
 
-inline int lua_absindex(lua_State* L, int idx)
+inline void lua_rawgetp(lua_State* L, int i, void* p)
 {
-    return idx < 0 ? lua_gettop(L) + idx + 1 : idx;
+    int abs_i = lua_absindex(L, i);
+    lua_pushlightuserdata(L, reinterpret_cast<void*>(p));
+    lua_rawget(L, abs_i);
 }
-#endif
+
+inline const char *luaL_tolstring(lua_State *L, int idx, size_t *len)
+{
+  if (!luaL_callmeta(L, idx, "__tostring")) {
+    int t = lua_type(L, idx);
+    switch (t) {
+      case LUA_TNIL:
+        lua_pushliteral(L, "nil");
+        break;
+      case LUA_TSTRING:
+      case LUA_TNUMBER:
+        lua_pushvalue(L, idx);
+        break;
+      case LUA_TBOOLEAN:
+        if (lua_toboolean(L, idx))
+          lua_pushliteral(L, "true");
+        else
+          lua_pushliteral(L, "false");
+        break;
+      default:
+        lua_pushfstring(L, "%s: %p", lua_typename(L, t),
+                                     lua_topointer(L, idx));
+        break;
+    }
+  }
+  return lua_tolstring(L, -1, len);
+}
+
+#endif // LUA_VERSION_NUM < 502
 
 #endif // LUABIND_LUA_INCLUDE_HPP_INCLUDED
